@@ -36,8 +36,15 @@
                   </div>
                   <div class="x_content">
                       <p>
-                        <h4>{{ $question->body }}</h4>
+                        <h4>{!! $question->body !!}</h4>
                       </p>
+                  <hr style="margin-bottom: 3px;">
+                  <div class="row">
+                        @foreach($question->tags as $tag)
+                          <a href="#" class="btn btn-default btn-round">{{ $tag->title }}</a>
+                        @endforeach
+                  </div>
+                  <hr style="margin-top: 1px;">
                   </div>
                 </div>
               </div>

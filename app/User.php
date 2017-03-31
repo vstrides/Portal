@@ -5,6 +5,7 @@ namespace App;
 use App\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class User extends Authenticatable
 {
@@ -31,5 +32,15 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
     }
 }

@@ -4,15 +4,16 @@
                     <h2>Ask a Question</h2>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
+                  <div class="x_content" id="root">
                     <br />
-                    <form class="form-horizontal" action="/question" method="POST">
+                    @include('partials.image_upload')
+                    <form class="form-horizontal" action="{{ route('questions.store') }}" method="POST" style="padding-top: 10px;">
                       {{ csrf_field() }}
                       <div class="form-group">
                           <input type="text" class="form-control" placeholder="Your Question" name="title">
                       </div>
                       <div class="form-group">
-                          <select class="select2_multiple form-control" id="sel1" name="category_id">
+                          <select class="form-control select2_multiple" id="sel1" name="category_id">
                             <option></option>
                             @foreach($categories as $category => $value)
                             <option value="{{ $category }}">{{ $value }}</option>
@@ -27,7 +28,11 @@
                             @endforeach
                           </select>
                       </div>
-
+                      <div class="form-group">
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="photoPath in photoPaths">@{{ photoPath }}</li>
+                        </ul>
+                      </div>
                       <div class="form-group">
                         <textarea placeholder="Describe your Question..." name="body" id="question_body" class="form-control">Is shaabi a fool ??</textarea>
                       </div>  

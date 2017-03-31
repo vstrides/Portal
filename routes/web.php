@@ -16,3 +16,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::resource('questions', 'QuestionController');
+
+Route::post('questions/photos', 'QuestionController@addPhotos');

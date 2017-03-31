@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('head')
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.css" />
 @endsection
 @section('content')
 	         
@@ -13,29 +14,54 @@
 @endsection
 @section('foot')
 <script src="{{ asset('js/select2.min.js') }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
 <script type="text/javascript">
-  		$(document).ready(function () {
+  	$(document).ready(function () {
+        let data = {
+          photoPaths: []
+        };
+
+        var app = new Vue({
+          el: '#root',
+          data: data
+        });
+
    			tinymce.init({
-		selector: 'textarea',
-		theme: 'modern',
-    	width: 650,
-    	height: 200,
-    	plugins: [
-      		'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-      		'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media ','save table contextmenu directionality emoticons template paste textcolor'
-    		],
-    	content_css: 'css/content.css',
-    	toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
-		});
-  		$('#sel2').select2({
-  			placeholder: "Select Tags",
-  			maximumSelectionLength: 5
-  		});
-  		$('#sel1').select2({
-  			placeholder: "Categorize Question",
-  			allowClear: true,
-  		});
+		        selector: 'textarea',
+		        theme: 'modern',
+          	width: 650,
+          	height: 150,
+          	plugins: [
+            		'advlist link image lists spellchecker wordcount code media textcolor'
+          		],
+          	content_css: 'css/content.css',
+          	toolbar: 'bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | forecolor | code',
+            menubar : ''
+		    });
+  		
+        $('#sel2').select2({
+    			placeholder: "Select Tags",
+    			maximumSelectionLength: 5
+    		});
+      
+        Dropzone.options.photoUploadForm = {
+          paramName: 'photo',
+          maxFilesize: 3,
+          acceptedFiles: '.jpg, .jpeg, .png, .bmp',
+          dictDefaultMessage: 'Drop images to upload',
+          init: function() {
+            this.on("success", function(file, response) { 
+                data.photoPaths.push(response);
+            });
+          }
+        };
+
+    		$('#sel1').select2({
+    			placeholder: "Categorize Question",
+    			allowClear: true,
+    		});
 });
  </script>
 @endsection

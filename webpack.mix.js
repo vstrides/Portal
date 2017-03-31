@@ -19,7 +19,7 @@ $styles = [
 	'resources/assets/vendors/bootstrap-daterangepicker/daterangepicker.css',
 	'resources/assets/vendors/animate.css/animate.min.css',
 	'resources/assets/vendors/bootstrap/dist/css/bootstrap.min.css',
-	'resources/assets/vendors/build/css/custom.min.css',
+	'resources/assets/css/custom.min.css',
 	'resources/assets/css/portal.css'
 ];
 
@@ -46,7 +46,7 @@ $scripts = [
 	'resources/assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js',
 	'resources/assets/vendors/moment/min/moment.min.js',
 	'resources/assets/vendors/bootstrap-daterangepicker/daterangepicker.js',
-	'resources/assets/vendors/build/js/custom.min.js',
+	'resources/assets/js/custom.min.js',
 ];
 
 mix.styles($styles, 'public/css/all.css');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
+use App\Photo;
 use App\Category;
 use App\Question;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
+    protected $domainPath = 'http://portal.dev';
     /**
      * Display a listing of the resource.
      *
@@ -88,5 +90,18 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addPhotos(Request $request)
+    {
+        $this->validate( $request, [
+            'photo' => 'required|mimes:jpg,jpeg,bmp,png'
+        ]);
+
+        $photo = Photo::fromForm($request->file('photo'));
+
+        Auth::user()->addPhoto($photo);
+
+        return $this->domainPath . '/' . $photo->path;
     }
 }
