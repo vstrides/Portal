@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Photo;
+use App\Answer;
 use App\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,6 +34,11 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 
     public function photos()

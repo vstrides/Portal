@@ -17,4 +17,10 @@ Route::get('/', 'HomeController@index');
 
 Route::resource('questions', 'QuestionController');
 
-Route::post('questions/photos', 'QuestionController@addPhotos');
+Route::post('questions/photos', 'PhotoController@store')->name('questions.photo');
+
+Route::resource('answers', 'AnswerController');
+
+Route::post('answers/photos', 'PhotoController@store')->name('answers.photo');
+
+Route::post('answers/{answer}/comment', 'CommentController@store')->name('answers.comment');

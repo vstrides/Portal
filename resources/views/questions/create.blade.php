@@ -14,10 +14,9 @@
 @endsection
 @section('foot')
 <script src="{{ asset('js/select2.min.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
-<script type="text/javascript">
+<script>
   	$(document).ready(function () {
         let data = {
           photoPaths: []
@@ -31,8 +30,6 @@
    			tinymce.init({
 		        selector: 'textarea',
 		        theme: 'modern',
-          	width: 650,
-          	height: 150,
           	plugins: [
             		'advlist link image lists spellchecker wordcount code media textcolor'
           		],
@@ -43,7 +40,8 @@
   		
         $('#sel2').select2({
     			placeholder: "Select Tags",
-    			maximumSelectionLength: 5
+    			maximumSelectionLength: 5,
+          width: '100%',
     		});
       
         Dropzone.options.photoUploadForm = {
@@ -61,6 +59,7 @@
     		$('#sel1').select2({
     			placeholder: "Categorize Question",
     			allowClear: true,
+          width: '100%',
     		});
 });
  </script>

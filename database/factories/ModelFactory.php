@@ -2,6 +2,8 @@
 
 use App\Tag;
 use App\User;
+use App\Answer;
+use App\Comment;
 use App\Category;
 use App\Question;
 use App\Question_Tag;
@@ -54,5 +56,21 @@ $factory->define(Question_Tag::class, function (Faker\Generator $faker) {
     return [
         'question_id' => Question::orderBy(DB::raw('RAND()'))->first()->id,
         'tag_id' => Tag::orderBy(DB::raw('RAND()'))->first()->id,
+    ];
+});
+
+$factory->define(Answer::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => User::orderBy(DB::raw('RAND()'))->first()->id,
+        'question_id' => Question::orderBy(DB::raw('RAND()'))->first()->id,
+        'body' => $faker->paragraph(40, true)
+    ];
+});
+
+$factory->define(Comment::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => User::orderBy(DB::raw('RAND()'))->first()->id,
+        'answer_id' => Answer::orderBy(DB::raw('RAND()'))->first()->id,
+        'body' => $faker->sentence(20, true)
     ];
 });

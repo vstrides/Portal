@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Category;
-use App\Question;
+use App\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class QuestionController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +25,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('title', 'id');
-        $tags = Tag::pluck('title','id');
-        return view('questions.create', compact('tags', 'categories'));
+        //
     }
 
     /**
@@ -38,11 +34,14 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Answer $answer)
     {
-        $question = Auth::user()->questions()->create($request->all());
-        $question->tags()->sync($request->input('tags'));
-        return redirect('/');
+        $answer->comments()->create([
+                'body' => $request->input('body'),
+                'user_id' => Auth::user()->id
+            ]);
+
+        return back();
     }
 
     /**
@@ -51,9 +50,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
-        return view('questions.show', compact('question'));
+        //
     }
 
     /**
@@ -89,5 +88,4 @@ class QuestionController extends Controller
     {
         //
     }
-
 }

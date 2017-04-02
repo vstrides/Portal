@@ -75,6 +75,7 @@
     </div>
 
     <script src="{{ asset('js/all.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
 
     @yield('foot')
     

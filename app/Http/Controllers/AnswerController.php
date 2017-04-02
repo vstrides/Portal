@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Category;
-use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class QuestionController extends Controller
+class AnswerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Answer.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,43 +18,42 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new Answer.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $categories = Category::pluck('title', 'id');
-        $tags = Tag::pluck('title','id');
-        return view('questions.create', compact('tags', 'categories'));
+        //
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Answer in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $question = Auth::user()->questions()->create($request->all());
-        $question->tags()->sync($request->input('tags'));
-        return redirect('/');
+        
+        Auth::user()->answers()->create($request->all());
+
+        return redirect()->back();
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Answer.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
-        return view('questions.show', compact('question'));
+        //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified Answer.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -68,7 +64,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Answer in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -80,7 +76,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified Answer from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -89,5 +85,4 @@ class QuestionController extends Controller
     {
         //
     }
-
 }

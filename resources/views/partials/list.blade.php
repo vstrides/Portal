@@ -24,7 +24,7 @@
                             <div class="byline">
                               <span>{{ $question->created_at->diffForHumans() }}</span> by <a>{{ $question->user->name }}</a>
                             </div>
-                              <p class="excerpt">@php echo html_entity_decode($question->body) @endphp<a>Read&nbsp;More</a>
+                              <p class="excerpt">{!! $question->body !!}<a>Read&nbsp;More</a>
                               </p>
                             </div>
                           </div>

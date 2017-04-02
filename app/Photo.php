@@ -7,11 +7,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Photo extends Model
 {
- 	protected $table = 'question_photos';
-
  	protected $fillable = ['path'];
 
- 	protected $baseDir = 'photos/questions';
+ 	protected $baseDir = 'photos';
 
  	public function user()
  	{
