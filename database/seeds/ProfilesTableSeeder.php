@@ -1,10 +1,10 @@
 <?php
 
-use App\Question_Tag;
+use App\Profile;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class Question_TagSeeder extends Seeder
+class ProfilesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class Question_TagSeeder extends Seeder
     {
         Model::unguard();
 
-        factory(Question_Tag::class, 100)->create();
+        factory(Profile::class, 100)->create();
 
         Model::reguard();
     }

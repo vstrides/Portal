@@ -11,7 +11,10 @@ class DatabaseSeeder extends Seeder
 		'questions',
         'question_tag',
         'answers',
-        'comments'
+        'comments',
+        'question_vote',
+        'answer_vote',
+        'profiles'
 	];
 
 	protected $seeders = [
@@ -19,9 +22,13 @@ class DatabaseSeeder extends Seeder
 		'CategoriesTableSeeder',
 		'TagsTableSeeder',
 		'QuestionsTableSeeder',
-        'Question_TagSeeder',
+        'QuestionTagTableSeeder',
         'AnswersTableSeeder',
-        'CommentsTableSeeder'
+        'CommentsTableSeeder',
+        'AnswerVoteTableSeeder',
+        'QuestionVoteTableSeeder',
+        'ProfilesTableSeeder'
+
 	];
     /**
      * Run the database seeds.

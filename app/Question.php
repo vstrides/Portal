@@ -6,6 +6,7 @@ use App\Tag;
 use App\User;
 use App\Answer;
 use App\Category;
+use App\QuestionVote;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
@@ -33,4 +34,18 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(QuestionVote::class);
+    }
+
+    public function getVotes()
+    {
+        $status = $this->votes()->pluck('status');
+        $votes = 0;
+        foreach ($status as $value) {
+            $value ? $votes++ : $votes--;
+        }
+        return $votes;
+    }
 }

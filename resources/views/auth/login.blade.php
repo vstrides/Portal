@@ -46,12 +46,11 @@
                         {{ csrf_field() }}
                         <h1>Create Account</h1>
                         
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name" required autofocus>
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Name" required autofocus>
                         
                         
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required>
                                
-                        
                         
                                 <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
                         

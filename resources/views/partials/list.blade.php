@@ -22,9 +22,9 @@
                                 <a href="{{ route('questions.show', $question->id ) }}">{{ $question->title }}</a>
                               </h2>
                             <div class="byline">
-                              <span>{{ $question->created_at->diffForHumans() }}</span> by <a>{{ $question->user->name }}</a>
+                              <span>{{ $question->created_at->diffForHumans() }}</span> by <a href="{{ route('profile.show', $question->user->username) }}">{{ $question->user->username }}</a>
                             </div>
-                              <p class="excerpt">{!! $question->body !!}<a>Read&nbsp;More</a>
+                              <p class="excerpt">{!! substr($question->body, 0, 300) !!}<a href="{{ route('questions.show', $question->id) }}">...&nbsp;Read&nbsp;More</a>
                               </p>
                             </div>
                           </div>

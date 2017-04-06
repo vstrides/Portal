@@ -1,10 +1,10 @@
 <?php
 
-use App\User;
+use App\QuestionVote;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class UsersTableSeeder extends Seeder
+class QuestionVoteTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
     {
         Model::unguard();
 
-        factory(User::class, 100)->create();
+        factory(QuestionVote::class, 1000)->create();
 
         Model::reguard();
     }

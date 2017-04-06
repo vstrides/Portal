@@ -4,9 +4,12 @@ use App\Tag;
 use App\User;
 use App\Answer;
 use App\Comment;
+use App\Profile;
 use App\Category;
 use App\Question;
-use App\Question_Tag;
+use App\AnswerVote;
+use App\QuestionTag;
+use App\QuestionVote;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +27,21 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'username' => $faker->unique()->username,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(Profile::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->unique()->numberBetween(1,100),
+        'name' => $faker->name,
+        'dob' => $faker->date('Y-m-d'),
+        'gender' => $faker->boolean,
+        'status' => $faker->randomElement(['student', 'faculty']),
+        'bio' => $faker->paragraph(20),
     ];
 });
 
@@ -52,10 +66,26 @@ $factory->define(Tag::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Question_Tag::class, function (Faker\Generator $faker) {
+$factory->define(QuestionTag::class, function (Faker\Generator $faker) {
     return [
         'question_id' => Question::orderBy(DB::raw('RAND()'))->first()->id,
         'tag_id' => Tag::orderBy(DB::raw('RAND()'))->first()->id,
+    ];
+});
+
+$factory->define(AnswerVote::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => User::orderBy(DB::raw('RAND()'))->first()->id,
+        'answer_id' => Answer::orderBy(DB::raw('RAND()'))->first()->id,
+        'status' => $faker->boolean
+    ];
+});
+
+$factory->define(QuestionVote::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => User::orderBy(DB::raw('RAND()'))->first()->id,
+        'question_id' => Question::orderBy(DB::raw('RAND()'))->first()->id,
+        'status' => $faker->boolean
     ];
 });
 
