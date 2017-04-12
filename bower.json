@@ -1,0 +1,16 @@
+{
+  "name": "Portal",
+  "description": "Project for my College",
+  "main": "",
+  "authors": [
+    "Parvaiz Khan"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vstrides/Portal",
+  "private": true,
+  "dependencies": {
+    "simplemde": "^1.11.2",
+    "axios": "^0.16.0",
+    "tinymce": "^4.5.5"
+  }
+}

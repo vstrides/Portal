@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('head')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.min.css') }}">
+@endsection
 @section('content')
 <div class="" id="root">
             <div class="page-title">
@@ -28,10 +31,15 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
+                          <img id="profileImage" class="img-responsive avatar-view" src="{{ $profile->photo->path }}" alt="Avatar" title="Change the avatar">
+                          @can('update', $profile)
+                            <a data-toggle="modal" data-target="#photoModal" class="btn btn-default form-control" style="margin-top: 5px;">Change Photo <i class="fa fa-cog" aria-hidden="true"></i></a>
+                          @endcan
                         </div>
                       </div>
-                      <h3>{{ $profile->user->username }}</h3>
+
+                      <h3><label for="username" class="control-label">Username</label><br>
+                      <span>{{ $profile->user->username }}</span></h3>
 
                       <ul class="list-unstyled user_data">
                         <li>
@@ -39,7 +47,6 @@
                         </li>
                       </ul>
 
-                      <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                       <br />
 
                       
@@ -63,6 +70,7 @@
                             <ul class="list-group">
                               <li class="list-group-item">
                               <h2>
+
                               <label class="col-2 col-form-label">Name: </label>
                               <span id="profileName">{{ $profile->name }}</span>
                               @can('update', $profile)
@@ -73,7 +81,13 @@
                               <li class="list-group-item">
                               <h2>
                               <label class="col-2 col-form-label">Date of Birth: </label>
-                              <span id="profileDob">{{ $profile->dob->toFormattedDateString() }}</span>
+                              
+                              <span id="profileDob">
+                              @if($profile->dob)
+                              {{ $profile->dob->toFormattedDateString() }}
+                              @endif
+                              </span>
+                              
                               @can('update', $profile)
                               <a @click="updateDob({{ $profile->id }})" class="btn btn-default pull-right" style="margin-top: -5px;">Edit <i class="fa fa-cog" aria-hidden="true"></i></a>
                               @endcan
@@ -99,27 +113,92 @@
                               </li>
                             </ul>
                             <!-- end Basic info -->
-                            @include('profile.partials.genderModal')
-                            @include('profile.partials.statusModal')
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                             <!-- start about me -->
+                            <div class="row">
+                              @can('update', $profile)
+                              <a @click="showBio({{ $profile->id }})" class="btn btn-default pull-right" style="margin-right: 10px;">Edit <i class="fa fa-cog" aria-hidden="true"></i></a>
+                              @endcan
+                            </div>
+                            <div class="row" id="profileBio" style="padding-right: 10px;">
+                              @if($profile->bio)
                             <ul class="list-group">
                               <li class="list-group-item">
                               <h2>
-                                {{ $profile->bio }}
+                                {!! $profile->bio !!}
                               </h2>
                               </li>
                             </ul>
+                            @endif
+                            </div>
                             <!-- end about me -->
 
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                             <!-- start of contribution -->
+                            <div class="row" id="profilecontribution" style="padding-right: 10px; padding-left: 10px">
                             
-                            <!-- end fo contribution -->
+                            <div class="panel-group" id="accordion">
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    <span class="message">Questions Asked</span>
+                                    <span class="badge" style="margin-bottom: 3px;">
+                                    {{ $profile->user->questions->count() }}
+                                    </span></a>
+                                  </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                  <div class="panel-body">
+                                    <ul class="list-group" style="margin-bottom: 3px;">
+                                    @foreach($profile->user->questions as $question)
+                                      <li class="list-group-item">
+                                       <span>{{ $question->title }}</span>
+                                       <a class="link pull-right" href="{{ route('questions.show', $question->id) }}">Show <i class="fa fa-arrow-right"></i></a>
+                                      </li>
+                                    @endforeach
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                    <span class="message">Answer Published</span>
+                                    <span class="badge" style="margin-bottom: 3px;">
+                                    {{ $profile->user->answers()->count() }}
+                                    </span></a>
+                                  </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                  <div class="panel-body">
+                                    <ul class="list-group" style="margin-bottom: 3px;">
+                                    @if($profile->user->answers)
+                                    @foreach($profile->user->answers as $answer)
+                                      <li class="list-group-item">
+                                       <span>Answered Question : {{ $answer->question->title }}</span>
+                                       <a class="link pull-right" href="{{ route('answers.show', $answer->id) }}">Show <i class="fa fa-arrow-right"></i></a>
+                                      </li>
+                                    @endforeach
+                                    @endif
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
                           </div>
+                            <!-- end fo contribution -->
+
+                          </div>
+                            @include('profiles.partials.genderModal')
+                            @include('profiles.partials.statusModal')
+                            @include('profiles.partials.bioModal')
+                            @include('profiles.partials.photoModal')
                         </div>
                       </div>
                     </div>
@@ -131,6 +210,7 @@
 @endsection
 
 @section('foot')
+<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
 <script src="{{ asset('js/bootbox.min.js') }}"></script>
@@ -138,7 +218,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 <script>
     $(document).ready(function () {
-        
+        tinymceConfig = {
+            selector: '#bio',
+            theme: 'modern',
+            plugins: [
+                'advlist link  lists spellchecker wordcount'
+              ],
+            toolbar: 'bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',
+            menubar : ''
+        };
+
+        tinymce.init(tinymceConfig);        
+
+        // Prevent bootstrap dialog from blocking focusin
+        $(document).on('focusin', function(e) {
+            if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+          }
+        });
+
         var app = new Vue({
           el: '#root',
           methods : {
@@ -162,6 +260,17 @@
                       });
                   },
 
+              showBio : function(id){
+                        axios.get('/profiles/'+id)
+                          .then(function (response) {
+                              tinyMCE.activeEditor.setContent(response.data);
+                              $("#bioModal").modal('toggle');
+                          })
+                          .catch(function (error) {
+                            console.log(error);
+                          });
+                    },
+
               updateDob : function(id){
                         bootbox.prompt({
                           title: 'Enter new Date of Birth',
@@ -181,6 +290,21 @@
                           }
                       });
                   },
+
+              updateBio : function(id){
+                                result = tinyMCE.activeEditor.getContent();
+                                axios.patch('/profiles/'+id,{
+                                  bio : result
+                                })
+                                  .then(function (response) {
+                                      $('#profileBio').html("<ul class=\"list-group\"><li class=\"list-group-item\"><h2>"+result+"</h2></li></ul>");
+                                      $('#bioModal').modal('toggle');
+                                  })
+                                  .catch(function (error) {
+                                    console.log(error);
+                                  });
+                      
+                        },
 
               updateGender: function(id){
                       choice = $('input[type=radio][name=gender]:checked').val();
@@ -216,14 +340,28 @@
                                   });
                         }
                   }
-              
-              
-
               }
-
-
         });
-      
+
+        Dropzone.options.photoUploadForm = {
+          paramName: 'photo',
+          maxFilesize: 3,
+          maxFiles: 1,
+          acceptedFiles: '.jpg, .jpeg, .png, .bmp',
+          dictDefaultMessage: 'Drop photo',
+          maxfilesexceeded: function(file) {
+              this.removeAllFiles();
+              this.addFile(file);
+          },
+          init: function() {
+            this.on("success", function(file, response) {
+                $('#profileImage').attr('src',response);
+                $('#photoModal').modal('toggle');
+                this.removeAllFiles();
+            });
+          }
+        };
+   
 });
  </script>
 @endsection

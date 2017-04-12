@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\Profilephoto;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -19,7 +20,7 @@ class Profile extends Model
 
 	protected $gender = ['gender'];
 
-	protected $status = 'status';
+	protected $status = ['status'];
     
     public function user()
     {
@@ -28,16 +29,32 @@ class Profile extends Model
 
     public function getDobAttribute($date)
 	{
-    	return Carbon::parse($date);
+		if ($date) {
+			return Carbon::parse($date);
+		}
+    	
 	}
 
 	public function getGenderAttribute($gender)
 	{
-		return $gender ? 'Male' : 'Female';
+			$gender ?? $gender ? 'Male' : 'Female';
 	}
 
 	public function getStatusAttribute($status)
 	{
-		return ucwords($status);
+		if ($status) {
+			return ucwords($status);
+		}
 	}
+
+	public function photo()
+	{
+		return $this->hasOne(Profilephoto::class);
+	}
+
+	public function addPhoto(Profilephoto $photo)
+    {
+        return $this->photo()->update($photo->toArray());
+    }
+
 }

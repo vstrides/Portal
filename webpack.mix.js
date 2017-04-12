@@ -13,11 +13,13 @@ const { mix } = require('laravel-mix');
 $copystyles = [
 	'resources/assets/vendors/font-awesome/css/font-awesome.min.css',
 	'resources/assets/vendors/dropzone/dist/min/dropzone.min.css',
-	'resources/assets/vendors/select2/dist/css/select2.min.css',
+	'resources/assets/vendors/simplemde/dist/simplemde.min.css',
+	'resources/assets/vendors/select2/dist/css/select2.min.css'
 ];
 
 $copyscripts = [
 	'resources/assets/vendors/dropzone/dist/min/dropzone.min.js',
+	'resources/assets/vendors/simplemde/dist/simplemde.min.js',
 	'resources/assets/vendors/select2/dist/js/select2.min.js',
 	'resources/assets/vendors/moment/src/moment.js',
 	'node_modules/bootbox/bootbox.min.js',

@@ -9,6 +9,7 @@ use App\Category;
 use App\Question;
 use App\AnswerVote;
 use App\QuestionTag;
+use App\Profilephoto;
 use App\QuestionVote;
 
 /*
@@ -63,6 +64,13 @@ $factory->define(Category::class, function (Faker\Generator $faker) {
 $factory->define(Tag::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->word
+    ];
+});
+
+$factory->define(Profilephoto::class, function (Faker\Generator $faker) {
+    return [
+        'profile_id' => $faker->unique()->numberBetween(1,101),
+        'path' => '/photos/profile/batman.png'
     ];
 });
 

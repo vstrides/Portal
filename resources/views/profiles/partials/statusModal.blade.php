@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" @click="updateStatus({{ $profile->id }})" class="btn btn-primary">OK</button>
       </div>
     </div>

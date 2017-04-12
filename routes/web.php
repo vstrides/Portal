@@ -13,7 +13,9 @@
 
 Auth::routes();
 
-Route::get('/', 'QuestionController@index');
+Route::get('/', function(){
+	return view('home');
+});
 
 Route::resource('questions', 'QuestionController');
 
@@ -29,7 +31,12 @@ Route::post('answers/photos', 'PhotoController@store')->name('answers.photo');
 
 Route::post('answers/{answer}/comment', 'CommentController@store')->name('answers.comment');
 
-Route::get('{username}', 'ProfileController@show')->name('profile.show');
-
 Route::match(['put', 'patch'],'profiles/{profile}', 'ProfileController@update')->name('profile.update');
 
+Route::get('profiles/{profile}', 'ProfileController@info');
+
+Route::post('profiles/{profile}/photo', 'PhotoController@uploadPhoto')->name('profile.photo');
+
+Route::get('users', 'ProfileController@index')->name('profiles.index');
+
+Route::get('{username}', 'ProfileController@show')->name('profile.show');

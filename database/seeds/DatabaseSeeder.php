@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         'comments',
         'question_vote',
         'answer_vote',
-        'profiles'
+        'profiles',
+        'profilephotos'
 	];
 
 	protected $seeders = [
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
         'CommentsTableSeeder',
         'AnswerVoteTableSeeder',
         'QuestionVoteTableSeeder',
-        'ProfilesTableSeeder'
+        'ProfilesTableSeeder',
+        'ProfilePhotosTableSeeder'
 
 	];
     /**

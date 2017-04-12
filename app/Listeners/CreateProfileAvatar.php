@@ -3,11 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\ProfileCreated;
-use App\Events\UserRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CreateUserProfile
+class CreateProfileAvatar
 {
     /**
      * Create the event listener.
@@ -22,13 +21,13 @@ class CreateUserProfile
     /**
      * Handle the event.
      *
-     * @param  UserRegistered  $event
+     * @param  ProfileCreated  $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(ProfileCreated $event)
     {
-
-        event(new ProfileCreated($profile = $event->user->profile()->create([])));
-
+        $event->profile->photo()->create([
+            'path' => 'photos/profile/batman.png'
+            ]);
     }
 }

@@ -1,11 +1,17 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="#"><i class="fa fa-question-circle"></i>Questions</a></li>
+                  <li>
+                    <a href="{{ route('questions.index') }}">
+                    <i class="fa fa-question-circle"></i>Questions</a>
+                  </li>
                   <li><a href="#"><i class="fa fa-tags"></i> Tags </a></li>
                   <li><a href="#"><i class="fa fa-trophy"></i> Badges </a></li>
                   <li><a href="#"><i class="fa fa-list-ul"></i> Categories </a></li>
-                  <li><a href="#"><i class="fa fa-users"></i> Users </a></li>
+                  <li>
+                  <a href="{{ route('profiles.index') }}">
+                  <i class="fa fa-users"></i> Users </a>
+                  </li>
                 </ul>
             </div>
 </div>

@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegistered' => [
             'App\Listeners\CreateUserProfile',
         ],
+        'App\Events\ProfileCreated' => [
+            'App\Listeners\CreateProfileAvatar',
+        ],
     ];
 
     /**
