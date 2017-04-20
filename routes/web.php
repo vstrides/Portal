@@ -39,4 +39,8 @@ Route::post('profiles/{profile}/photo', 'PhotoController@uploadPhoto')->name('pr
 
 Route::get('users', 'ProfileController@index')->name('profiles.index');
 
+Route::get('tags', 'TagsController@index')->name('tags.show');
+
+Route::get('categories', 'CategoryController@index')->name('categories.show');
+
 Route::get('{username}', 'ProfileController@show')->name('profile.show');

@@ -101,7 +101,7 @@
                       <li>
                         <a>
                           <span class="image">
-                            <img src="/images/img.jpg" alt="img" />
+                            <img src="{{ $answer->user->profile->photo->path }}" alt="img" />
                           </span>
                           <span>
                             <span>{{ $answer->user->username }}</span>
@@ -162,9 +162,9 @@
                   <div class="collapse" id="{{ $answer->id }}Comments" style="padding-top: 10px;">
                     @foreach($answer->comments()->latest('created_at')->get() as $comment )
                       <div class="media">
-                      <a class="pull-left" href="#">
-                          <img class="media-object" src="http://placehold.it/64x64" alt="">
-                      </a>
+                      <span class="image pull-left">
+                            <img src="{{ $answer->user->profile->photo->path }}" alt="img" / height="30" width="30">
+                      </span>
                       <div class="media-body">
                           <h4 class="media-heading">{{ $comment->user->username }}
                               <small>{{ $comment->created_at->diffForHumans() }}</small>

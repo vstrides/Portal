@@ -52,6 +52,7 @@ $factory->define(Question::class, function (Faker\Generator $faker) {
         'category_id' => Category::orderBy(DB::raw('RAND()'))->first()->id,
         'title' => $faker->sentence . "?",
         'body' => $faker->paragraph(40, true),
+        'views' => $faker->numberBetween(1,100)
     ];
 });
 
@@ -69,7 +70,7 @@ $factory->define(Tag::class, function (Faker\Generator $faker) {
 
 $factory->define(Profilephoto::class, function (Faker\Generator $faker) {
     return [
-        'profile_id' => $faker->unique()->numberBetween(1,101),
+        'profile_id' => $faker->unique()->numberBetween(1,100),
         'path' => '/photos/profile/batman.png'
     ];
 });

@@ -5,9 +5,8 @@
                     <a href="{{ route('questions.index') }}">
                     <i class="fa fa-question-circle"></i>Questions</a>
                   </li>
-                  <li><a href="#"><i class="fa fa-tags"></i> Tags </a></li>
-                  <li><a href="#"><i class="fa fa-trophy"></i> Badges </a></li>
-                  <li><a href="#"><i class="fa fa-list-ul"></i> Categories </a></li>
+                  <li><a href="{{ route('tags.show') }}"><i class="fa fa-tags"></i> Tags </a></li>
+                  <li><a href="{{ route('categories.show') }}"><i class="fa fa-list-ul"></i> Categories </a></li>
                   <li>
                   <a href="{{ route('profiles.index') }}">
                   <i class="fa fa-users"></i> Users </a>

@@ -36,14 +36,14 @@
                             <div class="row">
                             <table style="width:100%; margin-top: 10px">
                               <tr>
-                                <td><center><button class="btn btn-default btn-circle btn-lg">06</button></center></td>
-                                <td><center><button class="btn btn-success btn-circle btn-lg ">08</button></center></td>
-                                <td><center><button class="btn btn-primary btn-circle btn-lg">23</button></center></td>
+                                <td><center><button class="btn btn-default btn-circle btn-lg">{{ $question->views }}</button></center></td>
+                                <td><center><button class="btn btn-success btn-circle btn-lg ">{{ $question->answers->count() }}</button></center></td>
+                                <td><center><button class="btn btn-primary btn-circle btn-lg">{{ $question->getVotes() }}</button></center></td>
                               </tr>
                               <tr>
                                 <td><center>Views</center></td>
                                 <td><center>Answers</center></td>
-                                <td><center>Likes</center></td>
+                                <td><center>Votes</center></td>
                               </tr>
                             </table>
                           </div>

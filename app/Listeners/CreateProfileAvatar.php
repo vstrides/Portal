@@ -27,7 +27,7 @@ class CreateProfileAvatar
     public function handle(ProfileCreated $event)
     {
         $event->profile->photo()->create([
-            'path' => 'photos/profile/batman.png'
+            'path' => '/photos/profile/batman.png'
             ]);
     }
 }

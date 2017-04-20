@@ -37,7 +37,10 @@ class Profile extends Model
 
 	public function getGenderAttribute($gender)
 	{
-			$gender ?? $gender ? 'Male' : 'Female';
+		if ($gender === 1)
+			return 'Male';
+		else if($gender === 0)
+			return 'Female';
 	}
 
 	public function getStatusAttribute($status)

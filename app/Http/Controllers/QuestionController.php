@@ -68,6 +68,9 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
 
+        $question->update([
+                'views' => $question->views++
+            ]);
         return view('questions.show', compact('question'));
 
     }
